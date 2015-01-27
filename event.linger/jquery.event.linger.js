@@ -132,7 +132,7 @@ linger = $special.linger = {
 				break;
 			// track mouse movement
 			case 'mousemove': 
-				// distance² = x² + y²
+				// distanceÂ² = xÂ² + yÂ²
 				data.dist2 += Math.pow( event.pageX - data.event.pageX, 2 ) 
 					+ Math.pow( event.pageY - data.event.pageY, 2 ); 
 				// store current event	
