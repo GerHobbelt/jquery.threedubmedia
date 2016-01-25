@@ -1,7 +1,7 @@
 {
-  "name": "jquery.threedubmedia",
+  "name": "jquery.threedubmedia.dj",
   "version": "2.2.0",
-  "homepage": "https://github.com/threedubmedia/jquery.threedubmedia",
+  "homepage": "https://github.com/nathell/jquery.threedubmedia",
   "description": "jquery plugins http://threedubmedia.com",
   "moduleType": [
     "globals"
