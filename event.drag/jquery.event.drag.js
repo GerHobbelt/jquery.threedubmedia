@@ -236,8 +236,12 @@ drag = $special.drag = {
 		len = !isNaN( x ) ? x : dd.interactions.length;
 		// modify the event type
 		event.type = type;
-		// remove the original event
-		event.originalEvent = null;
+		// protects originalEvent from side-effects
+		event.originalEvent = new jQuery.Event(orig.event, {
+			preventDefault: function () {},
+			stopPropagation: function () {},
+			stopImmediatePropagation: function () {}
+		});
 		// initialize the results
 		dd.results = [];
 		// handle each interacted element
