@@ -26,9 +26,9 @@
 // add the jquery instance method
 $.fn.drop = function ( str, arg, opts ) {
     // figure out the event type
-    var type = typeof str === "string" ? str : "",
+    var type = typeof str === "string" ? str : "";
     // figure out the event handler...
-    fn = $.isFunction( str ) ? str : $.isFunction( arg ) ? arg : null;
+    var fn = $.isFunction( str ) ? str : $.isFunction( arg ) ? arg : null;
     // fix the event type
     if ( type.indexOf("drop") !== 0 ) {
         type = "drop" + type;
@@ -96,8 +96,10 @@ var drop = $special.drop = {
     remove: function () {
         // read the interaction data
         var data = $.data( this, drop.datakey );
-        // forget another related event
-        data.related -= 1;
+        if ( data ) {
+            // forget another related event
+            data.related -= 1;
+        }
     },
 
     // configure the interactions
@@ -122,9 +124,9 @@ var drop = $special.drop = {
 
     // destroy the configured interaction
     teardown: function () {
-        var data = $.data( this, drop.datakey ) || {};
+        var data = $.data( this, drop.datakey );
         // check for related events
-        if ( data.related ) {
+        if ( data && data.related > 0 ) {
             return;
         }
         // remove the stored data

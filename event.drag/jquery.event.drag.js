@@ -44,6 +44,7 @@ $.fn.drag = function ( str, arg, opts ) {
 // local refs (increase compression)
 var $event = $.event;
 var $special = $event.special;
+
 // configure the drag special event
 var drag = $special.drag = {
     // these are the default settings
@@ -86,17 +87,19 @@ var drag = $special.drag = {
     remove: function () {
         // read the interaction data
         var data = $.data( this, drag.datakey );
-        // forget another related event
-        data.related -= 1;
+        if ( data ) {
+            // forget another related event
+            data.related -= 1;
+        }
     },
 
-    // configure interaction, capture settings
+    // configure the interactions & capture settings
     setup: function () {
         // check for related events
         if ( $.data( this, drag.datakey ) ) {
             return;
         }
-        // initialize the drag data with copied defaults
+        // initialize the drag element data with copied defaults
         var data = $.extend({ related: 0 }, drag.defaults );
         // store the interaction data
         $.data( this, drag.datakey, data );
@@ -110,9 +113,9 @@ var drag = $special.drag = {
 
     // destroy the configured interaction
     teardown: function () {
-        var data = $.data( this, drag.datakey ) || {};
+        var data = $.data( this, drag.datakey );
         // check for related events
-        if ( data.related ) {
+        if ( !data || data.related > 0 ) {
             return;
         }
         // remove the stored data
